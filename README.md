@@ -22,6 +22,9 @@ path := flag.String("d", "/home/zjh", "user directory")
 
 函数返回解析到数据的指针，之后调用flag.Parse(),解析出数据，并填充到对应指针指向的数据段中，这之后，我们就可以访问到对应的解析数据。
 
-例如：fmt.Printf("path   : %s\n", *path)
+例如：
+```golang
+fmt.Printf("path   : %s\n", *path)
+```
 
 
