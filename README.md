@@ -27,4 +27,13 @@ path := flag.String("d", "/home/zjh", "user directory")
 fmt.Printf("path   : %s\n", *path)
 ```
 
+## net包
+> func (c *TCPConn) Read(b []byte) (int, error)
+
+疑惑：这里传入一个切片，那么当缓冲区的数据比切片空间大，会改变切片的大小吗？
+答案：不会，如果切片大小为1，那么读取出来的数据长度也为1，然后循环读取，因此这里在读取时应该根据自身的业务开辟一个比较合理的大小，提高读取效率。
+
+## 获取code.google.com上的代码
+
+hg clone https://code.google.com/p/goprotobuf/ 这样将克隆下来对应代码，并放在goprotobuf文件夹下
 
