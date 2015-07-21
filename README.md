@@ -1,7 +1,8 @@
-# study
+# 学习杂记
 学习项目
 按照语言类型分类
-# golang
+
+# go语言学习
 ## flag
 
 > flag为golang用于处理命名行参数的一个库。
@@ -37,3 +38,18 @@ fmt.Printf("path   : %s\n", *path)
 
 hg clone https://code.google.com/p/goprotobuf/ 这样将克隆下来对应代码，并放在goprotobuf文件夹下
 
+
+## log4go的坑
+code.google.com/p/log4go，使用源码中举的例子既然没有打印输出，百事不得其解，最后发现是log4go的bug，这个bug是程序退出可能有日志没有flush到磁盘。例如编写如下例子：
+```
+func main() {
+
+	//log4go.Debug("test")
+	log := log4go.NewDefaultLogger(log4go.DEBUG)
+	defer log.Close()
+
+	log.AddFilter("log", log4go.DEBUG, log4go.NewFileLogWriter("example.log", true))
+	log.Info("test log output")
+}
+```
+你会发现不管是控制台，还是文件，都没有任何输出，即使你加上defer log.Close()，因为Close也是异步的，最后我尝试加上time.Sleep(time.Second * 10)，终于输出了。
